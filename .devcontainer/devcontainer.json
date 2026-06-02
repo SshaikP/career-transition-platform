@@ -1,22 +1,15 @@
 {
   "name": "Career Platform Dev Env",
-  "image": "mcr.microsoft.com/devcontainers/java:17",
+  "image": "mcr.microsoft.com/devcontainers/java:1-17-bullseye",
 
-  "features": {
-    "ghcr.io/devcontainers/features/maven:1": {},
-    "ghcr.io/devcontainers/features/docker-in-docker:2": {},
-    "ghcr.io/devcontainers/features/aws-cli:1": {}
-  },
-
-  "postCreateCommand": "java -version && mvn -v && aws --version",
+  "postCreateCommand": "java -version && mvn -v",
 
   "customizations": {
     "vscode": {
       "extensions": [
         "vscjava.vscode-java-pack",
-        "vscjava.vscode-spring-boot-dashboard",
         "redhat.java",
-        "ms-azuretools.vscode-docker"
+        "vscjava.vscode-spring-boot-dashboard"
       ]
     }
   }
