@@ -1,16 +1,9 @@
 {
-  "name": "Career Transition Platform Dev Environment",
+  "name": "Career Platform Stable Env",
 
   "image": "mcr.microsoft.com/devcontainers/java:1-17-bullseye",
 
-  "features": {
-    "ghcr.io/devcontainers/features/docker-in-docker:2": {},
-    "ghcr.io/devcontainers/features/kubectl-helm-minikube:1": {},
-    "ghcr.io/devcontainers/features/aws-cli:1": {},
-    "ghcr.io/devcontainers/features/git-lfs:1": {}
-  },
-
-  "postCreateCommand": "git lfs install && java -version && mvn -v && aws --version && kubectl version --client",
+  "postCreateCommand": "git lfs install && java -version && mvn -v",
 
   "customizations": {
     "vscode": {
@@ -18,8 +11,6 @@
         "vscjava.vscode-java-pack",
         "redhat.java",
         "vscjava.vscode-spring-boot-dashboard",
-        "ms-azuretools.vscode-docker",
-        "ms-kubernetes-tools.vscode-kubernetes-tools",
         "eamodio.gitlens"
       ]
     }
