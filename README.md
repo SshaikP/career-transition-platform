@@ -2,6 +2,8 @@
 
 A production-grade 3-tier application that helps users transition into new career roles by analyzing skill gaps and generating personalized learning plans.
 
+---
+
 ## 🧱 Architecture
 
 - Frontend API Layer: Spring Boot (user-service)
@@ -10,23 +12,43 @@ A production-grade 3-tier application that helps users transition into new caree
 - Containerization: Docker
 - Orchestration: Kubernetes (Planned)
 
-## 🔹 Features
-
-- User Signup/Login
-- Skill Profile Management
-- Skill Gap Analysis (upcoming)
-- Personalized Learning Plan (upcoming)
+---
 
 ## 🏗️ Tech Stack
 
 - Java 17
 - Spring Boot
-- Spring Data JPA
-- PostgreSQL
-- Docker
+- Maven
+- H2 Database (Development)
+- PostgreSQL (Planned)
+- Docker (Planned)
 
-## 🚀 Getting Started
+---
+
+## ✅ Current Features
+
+- ✅ Spring Boot application setup
+- ✅ H2 database integration
+- ✅ User entity and persistence layer
+- ✅ REST API for user creation
+
+---
+
+## 📊 Development Progress
+
+| Day | Focus |
+|----|------|
+| Day 1 | Environment setup |
+| Day 2 | Spring Boot setup |
+| Day 3 | Database integration |
+| Day 4 | H2 DB setup |
+| Day 5 | User API |
+
+📁 Detailed logs available in [`docs/`](./docs)
+
+---
+
+## ▶️ Run the Project
 
 ```bash
-cd user-service
 mvn spring-boot:run
