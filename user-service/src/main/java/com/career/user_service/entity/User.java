@@ -1,4 +1,3 @@
-
 package com.career.user_service.entity;
 
 import jakarta.persistence.*;
@@ -16,6 +15,9 @@ public class User {
     @Id
     @GeneratedValue
     private UUID id;
+
+    @Column(unique = true)
+    private String userCode;
 
     @Email(message = "Invalid email format")
     @NotBlank(message = "Email is required")
