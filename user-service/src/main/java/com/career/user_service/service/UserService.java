@@ -34,22 +34,26 @@ public class UserService {
         return baseCode + (count + 1);
     }
 
+    
     public UserResponse createUser(UserRequest request) {
 
-    User user = new User();
-    user.setEmail(request.getEmail());
-    user.setUsername(request.getUsername());
-    user.setPassword(request.getPassword());
-    user.setUserCode(generateUserCode(request));
+        User user = new User();
+        user.setEmail(request.getEmail());
+        user.setUsername(request.getUsername());
+        user.setPassword(request.getPassword());
 
-    User savedUser = repository.save(user);
+        // ✅ CRITICAL LINE
+        user.setUserCode(generateUserCode(request));
 
-    UserResponse response = new UserResponse();
-    response.setId(savedUser.getId());
-    response.setEmail(savedUser.getEmail());
-    response.setUsername(savedUser.getUsername());
+        User savedUser = repository.save(user);
 
-    return response;
+        UserResponse response = new UserResponse();
+        response.setId(savedUser.getId());
+        response.setEmail(savedUser.getEmail());
+        response.setUsername(savedUser.getUsername());
+        response.setUserCode(savedUser.getUserCode()); // ✅ ADD THIS
+
+        return response;
     }
           
     public java.util.List<UserResponse> getAllUsers() {
