@@ -1,5 +1,7 @@
 package com.career.user_service.service;
 
+import com.career.user_service.dto.UserRequest;
+import com.career.user_service.dto.UserResponse;
 import com.career.user_service.entity.User;
 import com.career.user_service.repository.UserRepository;
 import org.springframework.stereotype.Service;
@@ -12,13 +14,70 @@ public class UserService {
     public UserService(UserRepository repository) {
         this.repository = repository;
     }
-
-    public User createUser(User user) {
-        return repository.save(user);
-    }
     
-    public java.util.List<User> getAllUsers() {
-    return repository.findAll();
+    public UserResponse createUser(UserRequest request) {
+
+    User user = new User();
+    user.setEmail(request.getEmail());
+    user.setUsername(request.getUsername());
+    user.setPassword(request.getPassword());
+
+    User savedUser = repository.save(user);
+
+    UserResponse response = new UserResponse();
+    response.setId(savedUser.getId());
+    response.setEmail(savedUser.getEmail());
+    response.setUsername(savedUser.getUsername());
+
+    return response;
+    }
+          
+    public java.util.List<UserResponse> getAllUsers() {
+    return repository.findAll().stream().map(user -> {
+        UserResponse res = new UserResponse();
+        res.setId(user.getId());
+        res.setEmail(user.getEmail());
+        res.setUsername(user.getUsername());
+        return res;
+        }).toList();
     }
 
-}
+    public UserResponse getUserById(java.util.UUID id) {
+    User user = repository.findById(id)
+            .orElseThrow(() -> new RuntimeException("User not found"));
+
+    UserResponse res = new UserResponse();
+    res.setId(user.getId());
+    res.setEmail(user.getEmail());
+    res.setUsername(user.getUsername());
+
+    return res;
+    }
+
+    public UserResponse updateUser(java.util.UUID id, UserRequest request) {
+    User user = repository.findById(id)
+            .orElseThrow(() -> new RuntimeException("User not found"));
+
+    user.setEmail(request.getEmail());
+    user.setUsername(request.getUsername());
+    user.setPassword(request.getPassword());
+
+    User updated = repository.save(user);
+
+    UserResponse res = new UserResponse();
+    res.setId(updated.getId());
+    res.setEmail(updated.getEmail());
+    res.setUsername(updated.getUsername());
+
+    return res;
+    }
+
+    public void deleteUser(java.util.UUID id) {
+    if (!repository.existsById(id)) {
+        throw new RuntimeException("User not found");
+    }
+
+    repository.deleteById(id);
+    }
+
+} 
