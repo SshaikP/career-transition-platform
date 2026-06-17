@@ -13,15 +13,22 @@ function UserForm({ refreshUsers }) {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  
+const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    await createUser(form);
-
-    setForm({ email: "", username: "", password: "" });
-
-    refreshUsers();
+  const userData = {
+    email: form.email,
+    password: form.password,
+    username: form.email.split("@")[0] // ✅ auto-generate
   };
+
+  await createUser(userData);
+
+  setForm({ email: "", username: "", password: "" });
+
+  refreshUsers();
+};
 
   return (
     <div>
@@ -29,8 +36,7 @@ function UserForm({ refreshUsers }) {
 
       <form onSubmit={handleSubmit}>
         <input name="email" placeholder="Email" value={form.email} onChange={handleChange} /><br/>
-        <input name="username" placeholder="Username" value={form.username} onChange={handleChange} /><br/>
-        <input name="password" placeholder="Password" value={form.password} onChange={handleChange} /><br/>
+                <input name="password" placeholder="Password" value={form.password} onChange={handleChange} /><br/>
         <button type="submit">Create User</button>
       </form>
     </div>

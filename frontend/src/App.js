@@ -9,7 +9,7 @@ function App() {
 
   const loadUsers = async () => {
     const response = await getUsers();
-    setUsers(response.data); // IMPORTANT
+    setUsers(response.data);
   };
 
   useEffect(() => {
@@ -17,12 +17,19 @@ function App() {
   }, []);
 
   return (
-    <div style={{ padding: "20px" }}>
+    <div
+      style={{
+        padding: "20px",
+        fontFamily: "Arial",
+        maxWidth: "600px",
+        margin: "auto"
+      }}
+    >
       <h1>Career Transition Platform</h1>
 
       <UserForm refreshUsers={loadUsers} />
 
-      <UserList users={users} />
+      <UserList users={users} refreshUsers={loadUsers} />
     </div>
   );
 }

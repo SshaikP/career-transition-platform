@@ -16,3 +16,9 @@ export const getUsers = async () => {
   const response = await fetch(BASE_URL);
   return response.json();
 };
+
+export const deleteUser = async (id) => {
+  await fetch(`${BASE_URL}/${id}`, {
+    method: "DELETE"
+  });
+};
