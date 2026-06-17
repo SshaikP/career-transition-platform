@@ -18,6 +18,7 @@ A production-grade 3-tier application that helps users transition into new caree
 
 - Java 17
 - Spring Boot
+- Node js 22.22.1
 - Maven
 - H2 Database (Development)
 - PostgreSQL (Planned)
@@ -52,3 +53,6 @@ A production-grade 3-tier application that helps users transition into new caree
 
 ```bash
 mvn spring-boot:run
+npx.cmd create-react-app frontend
+cd frontend
+npm.cmd start
