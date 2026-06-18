@@ -1,15 +1,15 @@
-# 🚀 Career Transition Platform
+# 🚀 SkillOrbit
 
-A production-grade 3-tier application that helps users transition into new career roles by analyzing skill gaps and generating personalized learning plans.
+A production-grade 3-tier application that helps users transition into new or desired career roles by analyzing skill gaps and generating personalized learning plans.
 
 ---
 
 ## 🧱 Architecture
 
-- Frontend API Layer: Spring Boot (user-service)
+- Frontend API Layer: React JS and Spring Boot (user-service)
 - Backend Processing Engine: Spring Boot (processing-service)
-- Database: PostgreSQL
-- Containerization: Docker
+- Database: H2-In memory, PostgreSQL (Planned)
+- Containerization: Docker (Planned)
 - Orchestration: Kubernetes (Planned)
 
 ---
