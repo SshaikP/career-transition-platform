@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import "./App.css";
 import UserForm from "./components/UserForm";
 import UserList from "./components/UserList";
 import { getUsers } from "./services/api";
@@ -8,8 +9,12 @@ function App() {
   const [users, setUsers] = useState([]);
 
   const loadUsers = async () => {
-    const response = await getUsers();
-    setUsers(response.data);
+    try {
+      const response = await getUsers();
+      setUsers(response.data || []);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   useEffect(() => {
@@ -17,19 +22,15 @@ function App() {
   }, []);
 
   return (
-    <div
-      style={{
-        padding: "20px",
-        fontFamily: "Arial",
-        maxWidth: "600px",
-        margin: "auto"
-      }}
-    >
-      <h1>Career Transition Platform</h1>
+    <div>
+      <div className="navbar">
+        SkillOrbit 🚀 — Your Career Growth Engine
+      </div>
 
-      <UserForm refreshUsers={loadUsers} />
-
-      <UserList users={users} refreshUsers={loadUsers} />
+      <div className="container">
+        <UserForm refreshUsers={loadUsers} />
+        <UserList users={users} refreshUsers={loadUsers} />
+      </div>
     </div>
   );
 }
