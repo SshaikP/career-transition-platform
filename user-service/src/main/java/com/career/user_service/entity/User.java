@@ -1,31 +1,55 @@
 package com.career.user_service.entity;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import lombok.Data;
-
-import java.util.UUID;
 
 @Entity
-@Data
 @Table(name = "users")
 public class User {
 
     @Id
-    @GeneratedValue
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    @Column(unique = true)
+    private String email;
+    private String username;
+    private String password;
     private String userCode;
 
-    @Email(message = "Invalid email format")
-    @NotBlank(message = "Email is required")
-    private String email;
+    // ✅ Getters and Setters
 
-    @NotBlank(message = "Username is required")
-    private String username;
+    public Long getId() {
+        return id;
+    }
 
-    @NotBlank(message = "Password is required")
-    private String password;
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getUserCode() {
+        return userCode;
+    }
+
+    public void setUserCode(String userCode) {
+        this.userCode = userCode;
+    }
 }

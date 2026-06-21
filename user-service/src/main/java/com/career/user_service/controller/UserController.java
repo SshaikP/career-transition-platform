@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.*;
 import jakarta.validation.Valid;
 
 import java.util.List;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/users")
@@ -35,14 +34,14 @@ public class UserController {
 
     // ✅ GET USER BY ID
     @GetMapping("/{id}")
-    public ApiResponse<UserResponse> getUserById(@PathVariable UUID id) {
+    public ApiResponse<UserResponse> getUserById(@PathVariable Long id) {
         return new ApiResponse<>("SUCCESS", service.getUserById(id));
     }
 
     // ✅ UPDATE USER
     @PutMapping("/{id}")
     public ApiResponse<UserResponse> updateUser(
-            @PathVariable UUID id,
+            @PathVariable Long id,
             @Valid @RequestBody UserRequest request
     ) {
         return new ApiResponse<>("SUCCESS", service.updateUser(id, request));
@@ -50,7 +49,7 @@ public class UserController {
 
     // ✅ DELETE USER
     @DeleteMapping("/{id}")
-    public ApiResponse<String> deleteUser(@PathVariable UUID id) {
+    public ApiResponse<String> deleteUser(@PathVariable Long id) {
         service.deleteUser(id);
         return new ApiResponse<>("SUCCESS", "User deleted successfully");
     }
