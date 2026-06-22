@@ -1,72 +1,136 @@
-body {
-  font-family: "Segoe UI", Arial, sans-serif;
-  background-color: #F9FAFB;
-  margin: 0;
-  padding: 0;
+/* ✅ GLOBAL DESIGN SYSTEM */
+
+:root {
+  --primary: #2563eb;
+  --primary-dark: #1d4ed8;
+  --accent: #22c55e;
+
+  --bg: #f5f7fb;
+  --card-bg: #ffffff;
+  --text: #1f2937;
+  --text-muted: #6b7280;
+  --border: #e5e7eb;
+
+  --high: #ef4444;
+  --medium: #f59e0b;
+  --low: #10b981;
 }
 
-/* Navbar */
+body {
+  margin: 0;
+  font-family: "Inter", sans-serif;
+  background-color: var(--bg);
+  color: var(--text);
+}
+
+/* ✅ NAVBAR */
+
 .navbar {
-  background-color: #4F46E5;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 30px;
+  background: var(--primary);
   color: white;
-  padding: 15px;
-  text-align: center;
-  font-size: 20px;
+}
+
+.logo {
+  font-size: 22px;
   font-weight: bold;
 }
 
-/* Container */
+.tagline {
+  font-size: 14px;
+  opacity: 0.8;
+}
+
+/* ✅ LAYOUT */
+
 .container {
-  max-width: 700px;
+  width: 85%;
   margin: auto;
   padding: 20px;
 }
 
-/* Card */
+/* ✅ CARD SYSTEM */
+
 .card {
-  background: white;
+  background: var(--card-bg);
   padding: 20px;
-  margin: 15px 0;
-  border-radius: 10px;
-  box-shadow: 0 3px 8px rgba(0,0,0,0.08);
+  margin-bottom: 20px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  box-shadow: 0px 2px 6px rgba(0,0,0,0.05);
 }
 
-/* Inputs */
+/* ✅ INPUTS */
+
 input {
-  width: 100%;
   padding: 10px;
-  margin: 8px 0;
+  margin: 10px;
+  width: 220px;
   border-radius: 6px;
-  border: 1px solid #ddd;
+  border: 1px solid var(--border);
 }
 
-/* Buttons */
+/* ✅ BUTTONS */
+
 button {
-  background-color: #4F46E5;
+  background: var(--primary);
   color: white;
-  border: none;
-  padding: 10px 15px;
+  padding: 10px 16px;
   border-radius: 6px;
+  border: none;
   cursor: pointer;
 }
 
 button:hover {
-  background-color: #4338CA;
+  background: var(--primary-dark);
 }
 
-button.delete {
-  background-color: #EF4444;
+/* ✅ DASHBOARD */
+
+.dashboard {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
 }
 
-button.delete:hover {
-  background-color: #DC2626;
+/* ✅ SKILL CARD */
+
+.skill-card {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  margin: 8px 0;
+  background: #f9fafb;
+  border-radius: 6px;
 }
 
-/* Messages */
-.success {
-  color: #10B981;
+.skill-card span {
+  font-size: 12px;
+  color: var(--text-muted);
 }
 
-.error {
-  color: #EF4444;
+/* ✅ PRIORITY COLORS */
+
+.high {
+  color: var(--high);
+  font-weight: bold;
+}
+
+.medium {
+  color: var(--medium);
+  font-weight: bold;
+}
+
+.low {
+  color: var(--low);
+  font-weight: bold;
+}
+
+/* ✅ ANALYSIS */
+
+.analysis-section {
+  margin-top: 20px;
 }

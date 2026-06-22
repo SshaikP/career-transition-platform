@@ -1,12 +1,16 @@
-#My First DOcker file to containerize the SkillOrbit application
-#Use java image
+# ✅ Build stage
+FROM maven:3.9.6-eclipse-temurin-17 AS build
+
+WORKDIR /app
+COPY . .
+RUN mvn clean package -DskipTests
+
+# ✅ Runtime stage
 FROM eclipse-temurin:17-jdk
 
-#Set the working directory
 WORKDIR /app
+COPY --from=build /app/target/*.jar app.jar
 
-#Copy the jar file to the container
-COPY target/user-service-0.0.1-SNAPSHOT.jar user-service.jar
+EXPOSE 8080
 
-#run the jar file
-ENTRYPOINT ["java","-jar","user-service.jar"]
+ENTRYPOINT ["java", "-jar", "app.jar"]

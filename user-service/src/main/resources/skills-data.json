@@ -1,0 +1,5 @@
+{
+  "Cloud Engineer": ["AWS", "Docker", "Kubernetes", "Networking"],
+  "Backend Developer": ["Java", "Spring Boot", "SQL"],
+  "DevOps Engineer": ["Docker", "Kubernetes", "CI/CD", "AWS"]
+}
