@@ -10,15 +10,31 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String name;
     private String email;
-    private String username;
-    private String password;
-    private String userCode;
 
-    // ✅ Getters and Setters
+    @Column(unique = true)
+    private String username;
+
+    private String password;
+
+    private String budgetPreference;
+
+    // ✅ NEW FIELD
+    private String role;
+
+    public User() {}
 
     public Long getId() {
         return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getEmail() {
@@ -45,11 +61,19 @@ public class User {
         this.password = password;
     }
 
-    public String getUserCode() {
-        return userCode;
+    public String getBudgetPreference() {
+        return budgetPreference;
     }
 
-    public void setUserCode(String userCode) {
-        this.userCode = userCode;
+    public void setBudgetPreference(String budgetPreference) {
+        this.budgetPreference = budgetPreference;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 }
