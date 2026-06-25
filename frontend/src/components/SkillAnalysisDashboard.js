@@ -29,6 +29,16 @@ function SkillAnalysisDashboard() {
       const data = await response.json();
       setResult(data);
 
+      
+      const token = localStorage.getItem("token");
+
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+
     } catch (err) {
       console.error("Analysis Error:", err);
       setError("❌ Failed to analyze skills. Please check backend.");

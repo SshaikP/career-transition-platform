@@ -1,53 +1,27 @@
-import { useEffect, useState } from "react";
-import "./App.css";
-import UserForm from "./components/UserForm";
-import UserList from "./components/UserList";
+import { useState } from "react";
+import Login from "./components/Login";
 import SkillAnalysisDashboard from "./components/SkillAnalysisDashboard";
-import { getUsers } from "./services/api";
+import AdminPanel from "./components/AdminPanel";
 
 function App() {
+  const [loggedIn, setLoggedIn] = useState(
+    !!localStorage.getItem("token")
+  );
 
-  const [users, setUsers] = useState([]);
-
-  const loadUsers = async () => {
-    try {
-      const response = await getUsers();
-      setUsers(response.data || []);
-    } catch (error) {
-      console.error(error);
-    }
+  const isAdmin = localStorage.getItem("username") === "admin";
+  const handleLogin = () => {
+    setLoggedIn(true);
   };
-
-  useEffect(() => {
-    loadUsers();
-  }, []);
 
   return (
     <div>
-
-      {/* ✅ ⚡ SkillOrbit Navbar */}
-      <div className="navbar">
-        <span className="logo">⚡ SkillOrbit</span>
-        <span className="tagline">Career Intelligence Platform</span>
-      </div>
-
-      <div className="container">
-
-        {/* ✅ User section */}
-        <div className="card">
-          <UserForm refreshUsers={loadUsers} />
-        </div>
-
-        <div className="card">
-          <UserList users={users} refreshUsers={loadUsers} />
-        </div>
-
-        {/* ✅ Skill Analysis */}
-        <div className="card">
-          <SkillAnalysisDashboard />
-        </div>
-
-      </div>
+      {!loggedIn ? (
+        <Login onLogin={handleLogin} />
+      ) : isAdmin ? (
+        <AdminPanel />
+      ) : (
+        <SkillAnalysisDashboard />
+      )}
     </div>
   );
 }
