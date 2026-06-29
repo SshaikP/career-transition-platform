@@ -1,39 +1,30 @@
 package com.career.user_service.controller;
 
-import com.career.user_service.repository.RoleSkillRepository;
+import com.career.user_service.service.AnalysisService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
 
 @RestController
 @RequestMapping("/api/analysis")
+@CrossOrigin(origins = "http://localhost:3000")
 public class AnalysisController {
 
-    private final RoleSkillRepository repo;
-
-    public AnalysisController(RoleSkillRepository repo) {
-        this.repo = repo;
-    }
+    @Autowired
+    private AnalysisService service;
 
     @PostMapping
-    public Map<String, Object> analyze(@RequestBody Map<String, Object> input) {
+    public List<Map<String, Object>> analyze(@RequestBody Map<String, Object> request) {
 
-        String currentRole = (String) input.get("currentRole");
-        String targetRole = (String) input.get("targetRole");
+        System.out.println("ANALYSIS API HIT ✅");
 
-        List<String> current = repo.findByRoleIgnoreCase(currentRole)
-                .stream().map(r -> r.getSkill()).toList();
+        String role = (String) request.get("role");
+        Map<String, Integer> skills = (Map<String, Integer>) request.get("skills");
 
-        List<String> target = repo.findByRoleIgnoreCase(targetRole)
-                .stream().map(r -> r.getSkill()).toList();
+        System.out.println("Role received: " + role);
+        System.out.println("Skills received: " + skills);
 
-        List<String> gap = new ArrayList<>(target);
-        gap.removeAll(current);
-
-        return Map.of(
-                "currentSkills", current,
-                "targetSkills", target,
-                "gap", gap
-        );
+        return service.analyzeSkills(role, skills);
     }
 }

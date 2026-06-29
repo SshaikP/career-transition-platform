@@ -32,6 +32,18 @@ public class JwtService {
     }
 
     // ✅ EXTRACT USERNAME (used later in filter)
+    public boolean validateToken(String token) {
+
+        try {
+            Jwts.parserBuilder()
+                    .setSigningKey(getSigningKey())
+                    .build()
+                    .parseClaimsJws(token);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
     public String extractUsername(String token) {
 
         return extractAllClaims(token).getSubject();

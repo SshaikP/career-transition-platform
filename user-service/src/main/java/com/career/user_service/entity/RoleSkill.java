@@ -13,23 +13,17 @@ public class RoleSkill {
     private String role;
     private String skill;
 
-    public Long getId() {
-        return id;
-    }
+    // ✅ NEW FIELD
+    private int requiredLevel; // 1–10
 
-    public String getRole() {
-        return role;
-    }
+    public Long getId() { return id; }
 
-    public void setRole(String role) {
-        this.role = role;
-    }
+    public String getRole() { return role; }
+    public void setRole(String role) { this.role = role; }
 
-    public String getSkill() {
-        return skill;
-    }
+    public String getSkill() { return skill; }
+    public void setSkill(String skill) { this.skill = skill; }
 
-    public void setSkill(String skill) {
-        this.skill = skill;
-    }
+    public int getRequiredLevel() { return requiredLevel; }
+    public void setRequiredLevel(int requiredLevel) { this.requiredLevel = requiredLevel; }
 }

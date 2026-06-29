@@ -1,26 +1,23 @@
 package com.career.user_service.controller;
 
 import com.career.user_service.repository.RoleSkillRepository;
+import com.career.user_service.entity.RoleSkill;   // ✅ IMPORTANT
+import org.springframework.beans.factory.annotation.Autowired;  // ✅ IMPORTANT
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
-@RequestMapping("/api/roles")
-public class RoleSkillController {
 
-    private final RoleSkillRepository repo;
+    @RestController
+    @RequestMapping("/api/roleskills")
+    @CrossOrigin(origins = "http://localhost:3000")
+    public class RoleSkillController {
 
-    public RoleSkillController(RoleSkillRepository repo) {
-        this.repo = repo;
+        @Autowired
+        private RoleSkillRepository repo;
+
+        @GetMapping("/{role}")
+        public List<RoleSkill> getSkills(@PathVariable String role) {
+            return repo.findByRoleIgnoreCase(role);
+        }
     }
-
-    @GetMapping("/{role}/skills")
-    public List<String> getSkills(@PathVariable String role) {
-
-        return repo.findByRoleIgnoreCase(role)
-                .stream()
-                .map(r -> r.getSkill())
-                .toList();
-    }
-}
