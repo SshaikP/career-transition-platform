@@ -1,9 +1,7 @@
 package com.career.user_service.service;
 
-import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
-import io.jsonwebtoken.Claims;
-
 import org.springframework.stereotype.Service;
 
 import java.security.Key;
@@ -12,46 +10,42 @@ import java.util.Date;
 @Service
 public class JwtService {
 
-    // ✅ must be at least 32 chars
-    private static final String SECRET =
-            "skillorbit-secret-key-secure-1234567890";
+    private static final String SECRET = "mysecretkeymysecretkeymysecretkey12345";
 
     private Key getSigningKey() {
         return Keys.hmacShaKeyFor(SECRET.getBytes());
     }
 
-    // ✅ GENERATE TOKEN (this is what your controller calls)
-    public String generateToken(String username) {
+    // ✅ GENERATE TOKEN WITH ROLE
+    public String generateToken(String username, String role) {
 
         return Jwts.builder()
                 .setSubject(username)
+                .claim("role", role)
                 .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60))
-                .signWith(getSigningKey())
+                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 10))
+                .signWith(getSigningKey(), SignatureAlgorithm.HS256)
                 .compact();
     }
 
-    // ✅ EXTRACT USERNAME (used later in filter)
-    public boolean validateToken(String token) {
+    public String extractUsername(String token) {
+        return extractAllClaims(token).getSubject();
+    }
 
+    public String extractRole(String token) {
+        return extractAllClaims(token).get("role", String.class);
+    }
+
+    public boolean validateToken(String token) {
         try {
-            Jwts.parserBuilder()
-                    .setSigningKey(getSigningKey())
-                    .build()
-                    .parseClaimsJws(token);
+            extractAllClaims(token);
             return true;
         } catch (Exception e) {
             return false;
         }
     }
-    public String extractUsername(String token) {
 
-        return extractAllClaims(token).getSubject();
-    }
-
-    // ✅ INTERNAL
     private Claims extractAllClaims(String token) {
-
         return Jwts.parserBuilder()
                 .setSigningKey(getSigningKey())
                 .build()

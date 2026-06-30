@@ -42,13 +42,35 @@ public class AnalysisService {
             List<String> freeSteps = new ArrayList<>();
             List<String> premiumSteps = new ArrayList<>();
 
+
             for (SkillLearningPath step : steps) {
-                if ("FREE".equalsIgnoreCase(step.getType())) {
-                    freeSteps.add(step.getStep());
-                } else {
-                    premiumSteps.add(step.getStep());
+
+                // ✅ LOW GAP → only FREE path
+                if (gap <= 2) {
+                    if ("FREE".equalsIgnoreCase(step.getType())) {
+                        freeSteps.add(step.getStep());
+                    }
                 }
+
+                // ✅ MEDIUM GAP → both free + some premium
+                else if (gap <= 5) {
+                    if ("FREE".equalsIgnoreCase(step.getType())) {
+                        freeSteps.add(step.getStep());
+                    } else {
+                        premiumSteps.add(step.getStep());
+                    }
                 }
+
+                // ✅ HIGH GAP → full roadmap
+                else {
+                    if ("FREE".equalsIgnoreCase(step.getType())) {
+                        freeSteps.add(step.getStep());
+                    } else {
+                        premiumSteps.add(step.getStep());
+                    }
+                }
+            }
+
                 
 
             Map<String, Object> data = new HashMap<>();

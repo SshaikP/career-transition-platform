@@ -14,33 +14,35 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/auth")
 @CrossOrigin(origins = "http://localhost:3000")
+
+
 public class AuthController {
 
     private final UserRepository userRepo;
     private final JwtService jwtService;
+    private final PasswordEncoder passwordEncoder;
 
-    public AuthController(UserRepository userRepo, JwtService jwtService) {
+    public AuthController(UserRepository userRepo,
+                          JwtService jwtService,
+                          PasswordEncoder passwordEncoder) {
         this.userRepo = userRepo;
         this.jwtService = jwtService;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @PostMapping("/register")
-    public ResponseEntity<?> register(@RequestBody Map<String, String> req) {
+    public ResponseEntity<?> register(@RequestBody User user) {
 
-        String username = req.get("username");
-        String password = req.get("password");
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
 
-        User user = new User();
-        user.setUsername(username);
-        user.setPassword(passwordEncoder.encode(password)); //✅✅✅
+        if (user.getRole() == null || user.getRole().isEmpty()) {
+            user.setRole("USER");
+        }
 
         userRepo.save(user);
 
-        return ResponseEntity.ok("Registered");
+        return ResponseEntity.ok("✅ User registered");
     }
-    
-    @Autowired
-    private PasswordEncoder passwordEncoder;
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody Map<String, String> req) {
@@ -48,29 +50,22 @@ public class AuthController {
         String username = req.get("username");
         String password = req.get("password");
 
-        System.out.println("🔍 LOGIN ATTEMPT:");
-        System.out.println("Username: " + username);
-        System.out.println("Entered Password: " + password);
-
         User user = userRepo.findByUsername(username);
 
-        if (user == null) {
-            System.out.println("❌ User NOT found");
+        if (user == null || !passwordEncoder.matches(password, user.getPassword())) {
             return ResponseEntity.status(401).body("Invalid credentials");
         }
 
-        System.out.println("Stored Password: " + user.getPassword());
+        // ✅ TOKEN NOW HAS ROLE
+        String token = jwtService.generateToken(
+                user.getUsername(),
+                user.getRole()
+        );
 
-        boolean match = passwordEncoder.matches(password, user.getPassword());
-
-        System.out.println("Password Match: " + match);
-
-        if (!match) {
-            return ResponseEntity.status(401).body("Invalid credentials");
-        }
-
-        String token = jwtService.generateToken(user.getUsername());
-
-        return ResponseEntity.ok(Map.of("token", token));
+        return ResponseEntity.ok(Map.of(
+                "token", token,
+                "username", user.getUsername(),
+                "role", user.getRole()
+        ));
     }
 }
