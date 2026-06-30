@@ -1,161 +1,33 @@
-import React, { useState } from "react";
+import React from "react";
 import "./App.css";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 
-import AdminPanel from "./components/AdminPanel";
-import SkillAnalysisDashboard from "./components/SkillAnalysisDashboard";
+import AuthPage from "./pages/AuthPage";
+import DashboardPage from "./pages/DashboardPage";
 
 function App() {
 
-  // 🔐 Auth state
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [isAdmin, setIsAdmin] = useState(false);
+  const isLoggedIn = localStorage.getItem("token");
 
-  // 👤 Login state
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-
-  // 🆕 Register state
-  const [registerUsername, setRegisterUsername] = useState("");
-  const [registerPassword, setRegisterPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-
-  const [view, setView] = useState("login");
-  const [error, setError] = useState("");
-
-  // ✅ LOGIN
-  const handleLogin = async () => {
-
-    try {
-      const res = await fetch("http://localhost:8080/api/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ username, password })
-      });
-
-      const data = await res.json();
-
-      if (data.token) {
-        localStorage.setItem("token", data.token);
-        localStorage.setItem("username", username);
-
-        setIsLoggedIn(true);
-
-        if (username === "admin") {
-          setIsAdmin(true);
-        }
-      } else {
-        setError("Invalid credentials");
-      }
-
-    } catch {
-      setError("Login failed");
-    }
-  };
-
-  // ✅ REGISTER
-  const handleRegister = async () => {
-
-    if (registerPassword !== confirmPassword) {
-      setError("Passwords do not match");
-      return;
-    }
-
-    try {
-      const res = await fetch("http://localhost:8080/api/auth/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          username: registerUsername,
-          password: registerPassword
-        })
-      });
-
-      const text = await res.text();
-
-      alert(text);
-
-      setView("login");
-      setError("");
-
-    } catch {
-      setError("Registration failed");
-    }
-  };
-
-  // ✅ LOGGED IN VIEWS
-  if (isLoggedIn) {
-    if (isAdmin) {
-      return <AdminPanel />;
-    }
-    return <SkillAnalysisDashboard />;
-  }
-
-  // ✅ LOGIN / REGISTER UI
   return (
-    <div className="login-container">
+    <Router>
+      <Routes>
 
-      <h2>⚡ SkillOrbit</h2>
+        {/* Default */}
+        <Route path="/" element={<Navigate to="/login" />} />
 
-      {view === "login" && (
-        <>
-          <input
-            placeholder="Username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-          />
+        {/* Auth */}
+        <Route path="/login" element={<AuthPage />} />
+        <Route path="/register" element={<AuthPage />} />
 
-          <input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
+        {/* Protected Dashboard */}
+        <Route
+          path="/dashboard"
+          element={isLoggedIn ? <DashboardPage /> : <Navigate to="/login" />}
+        />
 
-          <button onClick={handleLogin}>Login</button>
-
-          <p onClick={() => setView("register")} style={{ cursor: "pointer", color: "#4da6ff" }}>
-            New user? Register
-          </p>
-        </>
-      )}
-
-      {view === "register" && (
-        <>
-          <input
-            placeholder="Username"
-            value={registerUsername}
-            onChange={(e) => setRegisterUsername(e.target.value)}
-          />
-
-          <input
-            type="password"
-            placeholder="Password"
-            value={registerPassword}
-            onChange={(e) => setRegisterPassword(e.target.value)}
-          />
-
-          <input
-            type="password"
-            placeholder="Confirm Password"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-          />
-
-          <button onClick={handleRegister}>Register</button>
-
-          <p onClick={() => setView("login")} style={{ cursor: "pointer", color: "#aaa" }}>
-            Back to Login
-          </p>
-        </>
-      )}
-
-      {error && <p style={{ color: "red" }}>{error}</p>}
-
-    </div>
+      </Routes>
+    </Router>
   );
 }
 

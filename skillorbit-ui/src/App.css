@@ -1,35 +1,113 @@
-/* GLOBAL */
+/* ================= GLOBAL ================= */
 body {
   margin: 0;
   font-family: 'Segoe UI', Arial, sans-serif;
-  background: #0f1115;
+  background: #0d1117;
   color: #ffffff;
 }
 
-/* HEADER */
-.header {
-  font-size: 24px;
+/* ================= APP LAYOUT ================= */
+.app-container {
+  min-height: 100vh;
+}
+
+.content {
+  padding: 20px;
+}
+
+/* ================= NAVBAR ================= */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #111827;
+  padding: 12px 24px;
+  border-bottom: 1px solid #2a2f3a;
+}
+
+.nav-left {
+  font-size: 18px;
   font-weight: bold;
-  padding: 20px;
-  text-align: center;
-  background: linear-gradient(90deg, #0a3d62, #1e5799);
 }
 
-/* PAGE CONTAINER */
-.container {
-  padding: 20px;
+.logout-btn {
+  background: #ef4444;
+  padding: 8px 14px;
+  border: none;
+  border-radius: 6px;
+  color: white;
+  cursor: pointer;
 }
 
-/* CARD */
-.card {
-  background: #1c1f26;
-  border-radius: 15px;
+.logout-btn:hover {
+  background: #dc2626;
+}
+
+/* ================= DASHBOARD ================= */
+.dashboard-container {
+  max-width: 900px;
+  margin: 30px auto;
+}
+
+/* ================= SECTIONS / CARDS ================= */
+.section, .card {
+  background: #161b22;
   padding: 20px;
   margin-bottom: 20px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+  border-radius: 10px;
+
+  animation: fadeIn 0.3s ease;
 }
 
-/* LOGIN CONTAINER */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ================= INPUTS ================= */
+input, select {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+
+  border-radius: 8px;
+  border: none;
+
+  background-color: #2a2f38;
+  color: white;
+}
+
+input::placeholder {
+  color: #b0b0b0;
+}
+
+/* ================= BUTTONS ================= */
+button {
+  width: 100%;
+  padding: 12px;
+
+  border-radius: 8px;
+  border: none;
+
+  background: linear-gradient(90deg, #2563eb, #3b82f6);
+  color: white;
+
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+button:hover {
+  transform: scale(1.03);
+  background: linear-gradient(90deg, #3b82f6, #60a5fa);
+}
+
+/* ================= LOGIN ================= */
 .login-container {
   max-width: 400px;
   margin: 100px auto;
@@ -42,86 +120,86 @@ body {
   text-align: center;
 }
 
-.login-container p {
-  margin-top: 10px;
-  font-size: 14px;
-}
-
-/* INPUT FIELDS */
-input {
-  width: 100%;
-  padding: 12px;
-  margin: 10px 0;
-
-  border-radius: 8px;
-  border: none;
-
-  background-color: #2a2f38;
-  color: white;
-}
-
-/* PLACEHOLDER TEXT */
-input::placeholder {
-  color: #b0b0b0;
-}
-
-/* BUTTON */
-button {
-  width: 100%;
-  padding: 12px;
-
-  border-radius: 10px;
-  border: none;
-
-  background: linear-gradient(90deg, #0a3d62, #1e5799);
-  color: white;
-
-  font-size: 15px;
-  cursor: pointer;
-  transition: 0.2s;
-}
-
-/* BUTTON HOVER */
-button:hover {
-  opacity: 0.9;
-}
-
-/* RESULT CARD (ANALYSIS OUTPUT) */
+/* ================= RESULT CARDS ================= */
 .result-card {
-  display: flex;
-  align-items: flex-start;
-  gap: 15px;
+  background: linear-gradient(145deg, #0b1220, #0f172a);
+  padding: 20px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+
+  box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* ICON BOX */
-.icon-box {
-  width: 50px;
-  height: 50px;
-  border-radius: 12px;
+.result-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.6);
+}
 
+/* ================= PRIORITY BADGES ================= */
+.priority-row {
   display: flex;
-  align-items: center;
-  justify-content: center;
+  gap: 10px;
+  margin: 10px 0;
+}
 
-  font-size: 22px;
+.priority-badge {
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.priority-badge.low {
+  background: #22c55e;
+  color: black;
+}
+
+.priority-badge.medium {
+  background: #f59e0b;
+  color: black;
+}
+
+.priority-badge.high {
+  background: #ef4444;
   color: white;
 }
 
-/* PRIORITY COLORS */
-.high {
-  background: #e74c3c;
+/* ================= PATHS ================= */
+.paths {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
 }
 
-.medium {
-  background: #f39c12;
+.path-box {
+  min-width: 200px;
 }
 
-.low {
-  background: #2ecc71;
-}
-
-/* LABEL TEXT */
+/* ================= LABELS ================= */
 .label {
   color: #aaa;
   font-size: 13px;
+}
+
+/* ================= Admin panel ================= */
+.admin-tabs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.admin-tabs button {
+  flex: 1;
+}
+
+.section {
+  margin: 15px 0;
+}
+
+.card {
+  margin-top: 15px;
+  padding: 15px;
+  border-radius: 10px;
+  background: #1c2430;
 }
