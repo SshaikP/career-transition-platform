@@ -103,16 +103,16 @@ Database (Roles → Skills → Roadmap)
 cd user-service
 ./mvnw spring-boot:run
 
-### Frontend
+Frontend
 
 cd skillorbit-ui
 npm install
 npm start
 
-### Access (Local Environment)
+Access (Local Environment)
 Frontend: http://localhost:3000
-Backend:  http://localhost:8080
-H2 DB:    http://localhost:8080/h2-console
+Backend: http://localhost:8080
+H2 DB: http://localhost:8080/h2-console
 
 🧪 Test Flow
 
