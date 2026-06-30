@@ -1,58 +1,156 @@
-# 🚀 SkillOrbit
+# ⚡SkillOrbit
 
-A production-grade 3-tier application that helps users transition into new or desired career roles by analyzing skill gaps and generating personalized learning plans.
-
----
-
-## 🧱 Architecture
-
-- Frontend API Layer: React JS and Spring Boot (user-service)
-- Backend Processing Engine: Spring Boot (processing-service)
-- Database: H2-In memory, PostgreSQL (Planned)
-- Containerization: Docker (Planned)
-- Orchestration: Kubernetes (Planned)
+A full-stack **career intelligence platform** that helps users transition into new roles by analyzing their skill gaps and generating personalized learning roadmaps.
 
 ---
 
-## 🏗️ Tech Stack
+## 🔥 What This Application Does
 
-- Java 17
+This platform enables:
+
+✅ Admins to define roles, skills, and learning paths  
+✅ Users to select target roles and evaluate their skill levels  
+✅ The system to analyze skill gaps and recommend learning paths  
+
+---
+
+## 🧠 Core Concept
+
+ROLE → SKILLS → USER INPUT → GAP ANALYSIS → ROADMAP
+
+---
+
+## 🧩 Features
+
+### 🔐 Authentication & Security
+- JWT-based login system
+- Role-based access control (ADMIN vs USER)
+---
+
+### ⚙️ Admin Panel
+- Manage users
+- Create/update/delete roles
+- Define skills per role
+- Build learning roadmap steps
+- Fully UI-driven (no direct DB dependency ✅)
+
+---
+
+### 👤 User Dashboard
+- Select target role dynamically
+- Enter current skill levels
+- Trigger skill gap analysis
+- View:
+  - Priority (High / Medium / Low)
+  - Skill gaps
+  - Free learning path
+  - Premium learning path
+
+---
+
+### 📊 Skill Gap Analysis Engine
+- Compares user input vs required skill levels
+- Calculates gap and priority
+- Maps roadmap steps based on skill gaps
+
+---
+
+## 🧱 Tech Stack
+
+### Frontend
+- React.js
+- Modern UI components
+
+### Backend
 - Spring Boot
-- Node js 22.22.1
-- Maven
-- H2 Database (Development)
-- PostgreSQL (Planned)
-- Docker (Planned)
+- REST APIs
+- Spring Security (JWT-based)
+
+### Database
+- H2 (in-memory for development)
 
 ---
 
-## ✅ Current Features
+## 🏗️ Architecture
 
-- ✅ Spring Boot application setup
-- ✅ H2 database integration
-- ✅ User entity and persistence layer
-- ✅ REST API for user creation
+React UI
+↓
+Spring Boot APIs
+↓
+JWT Security Layer
+↓
+Business Logic (Analysis Engine)
+↓
+Database (Roles → Skills → Roadmap)
 
 ---
 
-## 📊 Development Progress
+## 📸 Screenshots (Add Yours Here)
 
-| Day | Focus |
-|----|------|
-| Day 1 | Environment setup |
-| Day 2 | Spring Boot setup |
-| Day 3 | Database integration |
-| Day 4 | H2 DB setup |
-| Day 5 | User API |
+- ✅ Admin Panel
+- ✅ Role Management
+- ✅ Skill Management
+- ✅ Roadmap Builder
+- ✅ User Dashboard
+- ✅ Analysis Results
+
+---
+
+## ▶️ How to Run
+
+### Backend
+```bash
+cd user-service
+./mvnw spring-boot:run
+
+### Frontend
+
+cd skillorbit-ui
+npm install
+npm start
+
+### Access (Local Environment)
+Frontend: http://localhost:3000
+Backend:  http://localhost:8080
+H2 DB:    http://localhost:8080/h2-console
+
+🧪 Test Flow
+
+Login as Admin
+Create roles
+Add skills to roles
+Define roadmap steps
+Login as user
+Select role
+Enter skill levels
+Click Analyze ✅
+
+✅ What Makes This Project Strong
+✔ End-to-end full-stack implementation
+✔ Clean separation of concerns
+✔ Real-world system design
+✔ Secure API architecture
+✔ Dynamic data-driven UI
+✔ No manual DB dependency (admin-driven system ✅)
+
+🚀 Future Enhancements
+
+Progress tracking
+Skill history graph
+Personalized recommendations
+CI/CD pipeline
+Cloud deployment (AWS / Azure)
+
+💡 Author
+Sadiq Pasha Shaik
+Cloud Applications Consultant
+
+⭐ Final Note
+This project demonstrates a production-like full-stack application with real-world concepts including:
+
+Secure API design
+Role-based systems
+Data-driven UI
+Analytical backend logic
 
 📁 Detailed logs available in [`docs/`](./docs)
-
----
-
-## ▶️ Run the Project
-
-```bash
-mvn spring-boot:run
-npx.cmd create-react-app frontend
-cd frontend
-npm.cmd start
