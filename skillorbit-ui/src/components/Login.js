@@ -4,12 +4,13 @@ function Login({ onLogin }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const API_BASE = process.env.REACT_APP_API_BASE_URL;
 
   const handleLogin = async () => {
     try {
       setError("");
 
-      const res = await fetch("http://localhost:8080/api/auth/login", {
+      const res = await fetch(`${API_BASE}/api/auth/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"

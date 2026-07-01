@@ -13,6 +13,8 @@ function SkillAnalysisDashboard() {
   const [skills, setSkills] = useState({});
   const [results, setResults] = useState([]);
 
+  const API_BASE = process.env.REACT_APP_API_BASE_URL;
+
   
       useEffect(() => {
         console.log("⚡ useEffect triggered");
@@ -36,7 +38,7 @@ const loadRoles = async () => {
 
     console.log("TOKEN:", token);
 
-    const res = await fetch("http://localhost:8080/api/admin/roles", {
+        const res = await fetch(`${API_BASE}/api/admin/roles`, {
       headers: {
         Authorization: `Bearer ${token}`
       }
@@ -68,13 +70,15 @@ const loadRoles = async () => {
         alert("Please select a role first ✅");
         return;
       }
+      
+               const res = await fetch(`${API_BASE}/api/roleskills/${targetRole}`);
 
-      const res = await fetch(`http://localhost:8080/api/roleskills/${targetRole}`);
+        if (!res.ok) {
+          console.error("Failed to load skills", res.status);
+          return;
+        }
 
-      if (!res.ok) {
-        console.error("Failed to load skills", res.status);
-        return;
-      }
+        console.log("API_BASE:", API_BASE);
 
       const data = await res.json();
 
@@ -99,7 +103,7 @@ const loadRoles = async () => {
 
 
     const handleAnalyze = async () => {
-      const response = await fetch("http://localhost:8080/api/analysis", {
+      const response = await fetch(`${API_BASE}/api/analysis`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"

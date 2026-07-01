@@ -3,6 +3,7 @@ import React, { useState } from "react";
 function AdminPanel() {
 
   const [tab, setTab] = useState("users");
+  const API_BASE = process.env.REACT_APP_API_BASE_URL;
 
   return (
     <div className="dashboard-container">
@@ -37,7 +38,7 @@ function Users() {
   const token = localStorage.getItem("token");
 
   const loadUsers = async () => {
-    const res = await fetch("http://localhost:8080/api/admin/users", {
+    const res = await fetch(`${API_BASE}/api/admin/users`, {    
       headers: { Authorization: `Bearer ${token}` }
     });
     const data = await res.json();
@@ -45,7 +46,7 @@ function Users() {
   };
 
   const deleteUser = async (id) => {
-    await fetch(`http://localhost:8080/api/admin/users/${id}`, {
+    await fetch(`${API_BASE}/api/admin/users/${id}`, {
       method: "DELETE",
       headers: { Authorization: `Bearer ${token}` }
     });
@@ -81,7 +82,7 @@ function Roles() {
   const token = localStorage.getItem("token");
 
   const loadRoles = async () => {
-    const res = await fetch("http://localhost:8080/api/admin/roles", {
+    const res = await fetch(`${API_BASE}/api/admin/roles`, {      
       headers: { Authorization: `Bearer ${token}` }
     });
     const data = await res.json();
@@ -91,7 +92,7 @@ function Roles() {
   const addRole = async () => {
     if (!roleName.trim()) return;
 
-    await fetch("http://localhost:8080/api/admin/roles", {
+    await fetch(`${API_BASE}/api/admin/roles`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -107,7 +108,7 @@ function Roles() {
   const deleteRole = async (id) => {
     if (!window.confirm("Delete role?")) return;
 
-    await fetch(`http://localhost:8080/api/admin/roles/${id}`, {
+    await fetch(`${API_BASE}/api/admin/roles/${id}`, {
       method: "DELETE",
       headers: { Authorization: `Bearer ${token}` }
     });
@@ -116,7 +117,7 @@ function Roles() {
   };
 
   const saveEdit = async (id) => {
-    await fetch(`http://localhost:8080/api/admin/roles/${id}`, {
+    await fetch(`${API_BASE}/api/admin/roles/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -193,7 +194,7 @@ function Skills() {
   const token = localStorage.getItem("token");
 
   const loadSkills = async () => {
-    const res = await fetch("http://localhost:8080/api/admin/roleskills", {
+    const res = await fetch(`${API_BASE}/api/admin/roleskills`, {
       headers: { Authorization: `Bearer ${token}` }
     });
 
@@ -212,7 +213,7 @@ function Skills() {
       return;
     }
 
-    await fetch("http://localhost:8080/api/admin/roleskills", {
+    await fetch(`${API_BASE}/api/admin/roleskills`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -231,7 +232,7 @@ function Skills() {
   const deleteSkill = async (id) => {
     if (!window.confirm("Delete this skill?")) return;
 
-    await fetch(`http://localhost:8080/api/admin/roleskills/${id}`, {
+    await fetch(`${API_BASE}/api/admin/roleskills/${id}`, {
       method: "DELETE",
       headers: { Authorization: `Bearer ${token}` }
     });
@@ -247,7 +248,7 @@ function Skills() {
 
   // ✅ SAVE EDIT
   const saveEdit = async (id) => {
-    await fetch(`http://localhost:8080/api/admin/roleskills/${id}`, {
+    await fetch(`${API_BASE}/api/admin/roleskills/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -356,7 +357,7 @@ function Roadmap() {
   const token = localStorage.getItem("token");
 
   const loadSteps = async () => {
-    const res = await fetch("http://localhost:8080/api/admin/learning-path", {
+    const res = await fetch(`${API_BASE}/api/admin/learning-path`, {
       headers: { Authorization: `Bearer ${token}` }
     });
     const data = await res.json();
@@ -371,7 +372,7 @@ function Roadmap() {
       return;
     }
 
-    await fetch("http://localhost:8080/api/admin/learning-path", {
+    await fetch(`${API_BASE}/api/admin/learning-path`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -390,7 +391,7 @@ function Roadmap() {
   const deleteStep = async (id) => {
     if (!window.confirm("Delete this step?")) return;
 
-    await fetch(`http://localhost:8080/api/admin/learning-path/${id}`, {
+    await fetch(`${API_BASE}/api/admin/learning-path/${id}`, {
       method: "DELETE",
       headers: { Authorization: `Bearer ${token}` }
     });
@@ -404,7 +405,7 @@ function Roadmap() {
   };
 
   const saveEdit = async (id) => {
-    await fetch(`http://localhost:8080/api/admin/learning-path/${id}`, {
+    await fetch(`${API_BASE}/api/admin/learning-path/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
