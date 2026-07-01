@@ -1,48 +1,102 @@
-version: "3.8"
+version: "3.9"
+
+# =====================================
+# ✅ SERVICES DEFINITION
+# =====================================
 
 services:
 
+  # ==============================
+  # ✅ DATABASE SERVICE
+  # ==============================
   postgres-db:
-    image: postgres:15
-    container_name: postgres-db
+    image: postgres:15-alpine   # ✅ lighter image
+    container_name: skillorbit-db
+
     environment:
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: admin123
       POSTGRES_DB: careerdb
+
     ports:
       - "5432:5432"
+
     volumes:
-      - postgres-data:/var/lib/postgresql/data
+      - postgres-data:/var/lib/postgresql/data   # ✅ persistent storage
+
+
     networks:
       - skillorbit-network
 
+    restart: unless-stopped   # ✅ auto restart
+
+  # ==============================
+  # ✅ BACKEND SERVICE
+  # ==============================
   backend:
-    build: ./user-service
+    build:
+      context: ./user-service
+      dockerfile: Dockerfile
+
     container_name: skillorbit-backend
+
     depends_on:
       - postgres-db
+
     ports:
       - "8080:8080"
+
     environment:
       SPRING_PROFILES_ACTIVE: docker
-      DB_URL: jdbc:postgresql://postgres-db:5432/careerdb
-      DB_USERNAME: admin
-      DB_PASSWORD: admin123
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-db:5432/careerdb
+      SPRING_DATASOURCE_USERNAME: admin
+      SPRING_DATASOURCE_PASSWORD: admin123
+
     networks:
       - skillorbit-network
 
+    
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080"]
+
+
+    restart: unless-stopped
+
+  # ==============================
+  # ✅ FRONTEND SERVICE
+  # ==============================
   frontend:
-    build: ./frontend
+    build:
+      context: ./skillorbit-ui   # ✅ FIXED PATH (important)
+      dockerfile: Dockerfile      
+      args:
+        REACT_APP_API_BASE_URL: http://backend:8080   # ✅ CORRECT
+
+
     container_name: skillorbit-frontend
+
     depends_on:
       - backend
+
     ports:
       - "3000:80"
+
     networks:
       - skillorbit-network
+
+    restart: unless-stopped
+
+# =====================================
+# ✅ NETWORK CONFIGURATION
+# =====================================
 
 networks:
   skillorbit-network:
+    driver: bridge
+
+# =====================================
+# ✅ VOLUME CONFIGURATION
+# =====================================
 
 volumes:
   postgres-data:
