@@ -1,10 +1,13 @@
 import { useState } from "react";
 
+const API_BASE = process.env.REACT_APP_API_BASE_URL;
+console.log("API_BASE =", process.env.REACT_APP_API_BASE_URL);
+
 function Login({ onLogin }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const API_BASE = process.env.REACT_APP_API_BASE_URL;
+  
 
   const handleLogin = async () => {
     try {

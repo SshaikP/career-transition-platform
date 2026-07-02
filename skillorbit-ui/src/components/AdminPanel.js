@@ -1,10 +1,11 @@
 import React, { useState } from "react";
+const API_BASE = process.env.REACT_APP_API_BASE_URL;
+console.log("API_BASE =", process.env.REACT_APP_API_BASE_URL);
 
 function AdminPanel() {
 
   const [tab, setTab] = useState("users");
-  const API_BASE = process.env.REACT_APP_API_BASE_URL;
-
+  
   return (
     <div className="dashboard-container">
 

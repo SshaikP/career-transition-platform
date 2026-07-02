@@ -70,7 +70,7 @@ services:
       context: ./skillorbit-ui   # ✅ FIXED PATH (important)
       dockerfile: Dockerfile      
       args:
-        REACT_APP_API_BASE_URL: http://backend:8080   # ✅ CORRECT
+        REACT_APP_API_BASE_URL: ${REACT_APP_API_BASE_URL}   # ✅ CORRECT
 
 
     container_name: skillorbit-frontend

@@ -12,6 +12,7 @@ WORKDIR /app
 COPY package*.json ./
 
 # ✅ STEP 3 — Install dependencies
+
 RUN npm ci --silent
 
 # ✅ STEP 4 — Copy source code
