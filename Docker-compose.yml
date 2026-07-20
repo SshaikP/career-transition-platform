@@ -44,11 +44,17 @@ services:
     ports:
       - "8080:8080"
 
+    volumes:
+      - ./user-service/src/main/resources/application-docker.properties:/app/config/application-docker.properties
+    tmpfs:
+      - /app/cache   # ✅ temporary storage for cache
+
     environment:
       SPRING_PROFILES_ACTIVE: docker
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-db:5432/careerdb
       SPRING_DATASOURCE_USERNAME: admin
       SPRING_DATASOURCE_PASSWORD: admin123
+      SPRING_CONFIG_LOCATION: classpath:/,file:/app/config/application-docker.properties
 
     networks:
       - skillorbit-network
