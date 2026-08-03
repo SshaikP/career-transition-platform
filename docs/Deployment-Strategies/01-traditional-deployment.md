@@ -1,266 +1,323 @@
-🚀 Phase 1 – Traditional Deployment
-📖 Overview
-This document describes the initial deployment architecture of SkillOrbit before introducing containerization and cloud-native deployment techniques.
+# 🚀 Phase 1: Traditional Deployment
 
-In this phase, the application components run directly on the host machine:
+## Overview
 
-React Frontend
-Spring Boot Backend
-H2 Database
-This deployment model was used to validate the application's core functionality, authentication mechanisms, role management, skill analysis engine, and learning roadmap generation.
+The initial version of SkillOrbit was deployed using a traditional application architecture where all components ran directly on the host machine without containerization.
 
-🎯 Objectives
-The primary objectives of this deployment phase were:
+This approach was chosen to rapidly validate business requirements, establish the full-stack architecture, and verify the end-to-end functionality of the platform before introducing Docker, cloud services, and orchestration technologies.
 
-✅ Develop the MVP
+---
 
-✅ Validate frontend-backend communication
+## Objectives
 
-✅ Implement JWT authentication
+The goals of this deployment phase were to:
 
-✅ Implement Role-Based Access Control (RBAC)
+- Build the initial Minimum Viable Product (MVP)
+- Establish frontend-to-backend communication
+- Implement JWT-based authentication
+- Introduce Role-Based Access Control (RBAC)
+- Develop the Skill Gap Analysis Engine
+- Validate roadmap generation capabilities
+- Create a solid foundation for future deployment models
 
-✅ Build the Skill Gap Analysis Engine
+---
 
-✅ Establish foundational architecture
+## Architecture
 
-🏗️ Traditional Architecture
-+-------------------+
-|     Browser       |
-+---------+---------+
-          |
-          | HTTP
-          v
-+-------------------+
-|   React Frontend  |
-|  localhost:3000   |
-+---------+---------+
-          |
-          | REST API Calls
-          |
-          v
-+-------------------+
-| Spring Boot APIs  |
-| localhost:8080    |
-+---------+---------+
-          |
-          | JPA
-          |
-          v
-+-------------------+
-|   H2 Database     |
-|  In-Memory DB     |
-+-------------------+
-🌐 Network Flow
-flowchart LR
-
-U[User Browser]
-
-F[React Frontend<br/>localhost:3000]
-
-B[Spring Boot Backend<br/>localhost:8080]
-
-D[(H2 Database)]
-
-U --> F
-
-F -->|REST API Calls| B
-
-B -->|CRUD Operations| D
-
-D --> B
-
-B --> F
-
-F --> U
-🔄 Application Request Flow
-sequenceDiagram
-
-actor User
-
-participant Frontend as React Frontend
-participant Backend as Spring Boot API
-participant DB as H2 Database
-
-User->>Frontend: Login / Select Role
-Frontend->>Backend: API Request
-Backend->>DB: Fetch Data
-DB-->>Backend: Response
-Backend-->>Frontend: JSON Response
-Frontend-->>User: Dashboard Update
-🧩 Components
-Frontend
-Technology
-React.js
-JavaScript
-HTML
-CSS
-Responsibilities
-Login UI
-Admin Dashboard
-Skill Analysis Dashboard
-User Interaction Layer
-API Consumption
-Backend
-Technology
-Spring Boot
-Spring Security
-JWT Authentication
-Spring Data JPA
-Responsibilities
-Authentication
-Role Management
-Skill Management
-Roadmap Generation
-Gap Analysis Processing
-Database
-Technology
-H2 In-Memory Database
-Responsibilities
-User Data Storage
-Role Data Storage
-Skills Repository
-Roadmap Definitions
-📦 Prerequisites
-Backend
-Java 17+
-Maven 3.9+
-Frontend
-Node.js
-npm
-▶️ Backend Deployment
-Navigate to backend folder:
-
-cd user-service
-Build application:
-
-mvn clean install
-Start application:
-
-mvn spring-boot:run
-Application URL:
-
-http://localhost:8080
-▶️ Frontend Deployment
-Navigate to frontend:
-
-cd skillorbit-ui
-Install dependencies:
-
-npm install
-Start application:
-
-npm start
-Application URL:
-
-http://localhost:3000
-🔑 Authentication Flow
-flowchart LR
-
-U[User]
-
-L[Login Page]
-
-A[Authentication API]
-
-J[JWT Token]
-
-D[Dashboard]
-
-U --> L
-
-L --> A
-
-A --> J
-
-J --> D
-📊 Skill Analysis Flow
+```mermaid
 flowchart TD
 
-A[Select Target Role]
+    User[👤 User Browser]
 
-B[Load Required Skills]
+    Frontend[⚛️ React Frontend<br/>localhost:3000]
 
-C[Enter Skill Levels]
+    Backend[☕ Spring Boot API<br/>localhost:8080]
 
-D[Submit Analysis]
+    Database[(🗄️ H2 Database)]
 
-E[Gap Calculation Engine]
+    User --> Frontend
 
-F[Priority Assignment]
+    Frontend -->|REST API Calls| Backend
 
-G[Roadmap Generation]
+    Backend -->|JPA Operations| Database
 
-H[Analysis Result]
+    Database --> Backend
 
-A --> B
+    Backend --> Frontend
 
-B --> C
+    Frontend --> User
+```
 
-C --> D
+---
 
-D --> E
+## Application Flow
 
-E --> F
+```mermaid
+sequenceDiagram
 
-F --> G
+    actor User
 
-G --> H
-⚠️ Challenges Encountered
-API Communication
-Challenge
-Frontend and backend initially failed to communicate correctly due to API configuration issues.
+    participant Frontend as React Frontend
+    participant Backend as Spring Boot API
+    participant Database as H2 Database
 
-Resolution
-Standardized API endpoints
-Corrected request paths
-Improved response handling
-Authentication
-Challenge
-JWT implementation required proper token propagation and authorization handling.
+    User->>Frontend: Login / Select Target Role
 
-Resolution
-Added JWT Filters
-Implemented Security Configuration
-Protected Admin APIs
-Data Consistency
-Challenge
-Maintaining role-skill-roadmap relationships.
+    Frontend->>Backend: REST API Request
 
-Resolution
-Normalized data model
-Introduced clear entity relationships
-📚 Key Learnings
-During this phase, the following concepts were mastered:
+    Backend->>Database: Query Required Data
 
-REST API Design
-JWT Authentication
-Spring Security
-Role-Based Authorization
-React State Management
-JPA Entity Relationships
-Full Stack Application Architecture
-✅ Outcome
-The traditional deployment phase successfully delivered:
+    Database-->>Backend: Return Results
 
-Secure Authentication
-Role-Based Access
-Dynamic User Interface
-Skill Gap Analysis
-Learning Roadmap Generation
-This phase established the foundation for future deployment strategies:
+    Backend-->>Frontend: JSON Response
 
-➡️ Traditional Deployment
+    Frontend-->>User: Render Dashboard
+```
 
-➡️ Containerized Deployment
+---
 
-➡️ Cloud Deployment
+## Technology Stack
 
-➡️ Kubernetes Orchestration
+### Frontend
 
-🚀 Next Phase
+- React.js
+- JavaScript
+- HTML5
+- CSS3
+
+### Backend
+
+- Spring Boot
+- Spring Security
+- Spring Data JPA
+- JWT Authentication
+
+### Database
+
+- H2 In-Memory Database
+
+### Development Tools
+
+- Maven
+- Node.js
+- npm
+- Git
+
+---
+
+## Local Environment Setup
+
+### Backend
+
+Navigate to the backend project:
+
+```bash
+cd user-service
+```
+
+Build the application:
+
+```bash
+mvn clean install
+```
+
+Start the application:
+
+```bash
+mvn spring-boot:run
+```
+
+---
+
+### Frontend
+
+Navigate to the frontend project:
+
+```bash
+cd skillorbit-ui
+```
+
+Install dependencies:
+
+```bash
+npm install
+```
+
+Run the application:
+
+```bash
+npm start
+```
+
+---
+
+## Access URLs
+
+| Component | URL |
+|------------|-----|
+| Frontend | http://localhost:3000 |
+| Backend | http://localhost:8080 |
+| H2 Console | http://localhost:8080/h2-console |
+
+---
+
+## Authentication Flow
+
+```mermaid
+flowchart LR
+
+    User[👤 User]
+
+    Login[🔐 Login Page]
+
+    Auth[🔑 Authentication API]
+
+    JWT[📄 JWT Token]
+
+    Dashboard[📊 Dashboard]
+
+    User --> Login
+
+    Login --> Auth
+
+    Auth --> JWT
+
+    JWT --> Dashboard
+```
+
+---
+
+## Skill Analysis Workflow
+
+```mermaid
+flowchart TD
+
+    A[Select Target Role]
+
+    B[Load Required Skills]
+
+    C[Enter Skill Ratings]
+
+    D[Submit Analysis]
+
+    E[Skill Gap Analysis Engine]
+
+    F[Priority Evaluation]
+
+    G[Roadmap Generation]
+
+    H[Personalized Recommendations]
+
+    A --> B
+
+    B --> C
+
+    C --> D
+
+    D --> E
+
+    E --> F
+
+    F --> G
+
+    G --> H
+```
+
+---
+
+## Challenges Encountered
+
+### JWT Security Integration
+
+**Challenge**
+
+Implementing secure API authentication while maintaining a smooth user experience.
+
+**Resolution**
+
+- Integrated Spring Security
+- Implemented JWT token generation and validation
+- Added role-based authorization
+
+---
+
+### Frontend–Backend Communication
+
+**Challenge**
+
+Ensuring reliable communication between React and Spring Boot.
+
+**Resolution**
+
+- Standardized REST APIs
+- Improved request and response handling
+- Implemented centralized API communication patterns
+
+---
+
+### Data Model Design
+
+**Challenge**
+
+Maintaining relationships between Roles, Skills, Users, and Learning Roadmaps.
+
+**Resolution**
+
+- Designed normalized entity relationships
+- Implemented JPA mappings
+- Established clear ownership and associations
+
+---
+
+## Key Learnings
+
+During this phase, the following concepts were successfully implemented and validated:
+
+- Full-Stack Application Development
+- React State Management
+- REST API Design
+- JWT Authentication
+- Spring Security
+- Role-Based Access Control
+- Database Relationships using JPA
+- Skill Gap Analysis Logic
+- Learning Roadmap Generation
+
+---
+
+## Outcomes
+
+✅ Successful MVP delivery
+
+✅ Secure authentication and authorization
+
+✅ Dynamic administration capabilities
+
+✅ Interactive user dashboard
+
+✅ Skill Gap Analysis Engine
+
+✅ Learning Roadmap Generation
+
+✅ Foundation established for future deployment strategies
+
+---
+
+## Deployment Evolution
+
+The SkillOrbit platform evolved through multiple deployment strategies:
+
+- ✅ Phase 1: Traditional Deployment
+- 🚀 Phase 2: Containerized Deployment
+- ☁️ Phase 3: Cloud Deployment
+- ☸️ Phase 4: Orchestrated Cloud Deployment
+
+---
+
+## Next Phase
+
 Continue to:
 
-📄 02-containerized-deployment.md
+➡️ **[Phase 2: Containerized Deployment](02-containerized-deployment.md)**
 
-to learn how SkillOrbit evolved into a Dockerized multi-container application.
+Learn how SkillOrbit was transformed into a multi-container application using Docker, PostgreSQL, and Docker Compose.
