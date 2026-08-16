@@ -133,7 +133,7 @@ The Analysis Engine:
 - Docker
 - Docker Compose
 - GitHub
-- Azure (In Progress)
+- Aws (In Progress)
 - Kubernetes (Planned)
 
 ---
@@ -216,7 +216,7 @@ Includes:
 
 Includes:
 
-- Azure Deployment Strategy
+- Aws Deployment Strategy
 - Container Registry Integration
 - Managed PostgreSQL Database
 - Environment Configuration
