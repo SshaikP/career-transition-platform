@@ -483,8 +483,10 @@ skill-orbit
 
 ## 👨‍💻 Author
 
-**Sadiq Pasha Shaik**  
-Cloud Applications Consultant
+**Shaik Sadiq Pasha**
+Cloud Applications Consultant · AWS Certified Solutions Architect – Associate
+
+[LinkedIn](https://www.linkedin.com/in/shaik-sadiq-pasha/) · [sadiqpasha7474@gmail.com](mailto:sadiqpasha7474@gmail.com) · [GitHub](https://github.com/SshaikP)
 
 ---
 
