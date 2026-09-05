@@ -2,12 +2,10 @@ stages:
   - build
   - test
   - docker
-
 # ✅ GLOBAL VARIABLES
 variables:
   IMAGE_BACKEND: skillorbit-backend
   IMAGE_FRONTEND: skillorbit-frontend
-
 # ✅ BUILD BACKEND
 build_backend:
   stage: build
@@ -19,20 +17,18 @@ build_backend:
   artifacts:
     paths:
       - user-service/target/*.jar
-
 # ✅ BUILD FRONTEND
 build_frontend:
   stage: build
   image: node:18
   script:
     - echo "🎨 Building frontend..."
-    - cd frontend
+    - cd skillorbit-ui
     - npm install
     - npm run build
   artifacts:
     paths:
-      - frontend/build/
-
+      - skillorbit-ui/build/
 # ✅ TEST BACKEND (SAFE MODE)
 test_backend:
   stage: test
@@ -41,7 +37,6 @@ test_backend:
     - echo "🧪 Running backend tests..."
     - cd user-service
     - mvn test || true
-
 # ✅ DOCKER BUILD
 docker_build:
   stage: docker
@@ -50,11 +45,8 @@ docker_build:
     - docker:dind
   script:
     - echo "🐳 Building Docker images..."
-
     # Backend image
     - docker build -t $IMAGE_BACKEND ./user-service
-
     # Frontend image
-    - docker build -t $IMAGE_FRONTEND ./frontend
-
+    - docker build -t $IMAGE_FRONTEND ./skillorbit-ui
     - echo "✅ Docker images built successfully"
