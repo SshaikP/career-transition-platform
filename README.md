@@ -380,7 +380,7 @@ localhost:5432
 ## 📁 Repository Structure
 
 ```text
-career-transition-platform
+skill-orbit
 │
 ├── skillorbit-ui/ (Frontned)
 │   ├── src/
